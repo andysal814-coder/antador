@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Anotador personal para la asamblea 2026 «Felices para siempre»: notas por discurso, orador y páginas adicionales.">
+<meta name="theme-color" content="#0F3F33">
+<link rel="icon" href="img/icon-192.png">
+<link rel="apple-touch-icon" href="img/icon-192.png">
+<link rel="manifest" href="manifest.json">
+<title>Anotador · Asamblea 2026 «Felices para siempre»</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mulish:wght@400;600;700&display=swap">
+<style>
+:root{
+  --bg:#FBF7F3; --card:rgba(255,255,255,.8); --ink:#26302C; --mute:#5C6661; --line:rgba(80,70,60,.22); --head:#0F3F33; --ctl:rgba(255,255,255,.62); --barbg:rgba(251,247,243,.86); --bgop:1;
+  --c-vie:#D9512C; --c-sab:#2F5D3A; --c-dom:#1B5E8C;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){--bg:#171B19;--card:rgba(32,37,34,.82);--ink:#ECEAE6;--mute:#A4ADA8;--line:rgba(255,255,255,.16);--head:#9FD3BF;--ctl:rgba(255,255,255,.07);--barbg:rgba(23,27,25,.88);--bgop:.22;--c-vie:#F08A66;--c-sab:#8CC59A;--c-dom:#7DB7E0}
+}
+:root[data-theme="dark"]{--bg:#171B19;--card:rgba(32,37,34,.82);--ink:#ECEAE6;--mute:#A4ADA8;--line:rgba(255,255,255,.16);--head:#9FD3BF;--ctl:rgba(255,255,255,.07);--barbg:rgba(23,27,25,.88);--bgop:.22;--c-vie:#F08A66;--c-sab:#8CC59A;--c-dom:#7DB7E0}
+html{height:100%;scroll-padding-top:calc(env(safe-area-inset-top,0px) + 56px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:16px/1.5 Mulish,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--barbg);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);z-index:30}
+#bgfx{position:fixed;inset:0;z-index:-1;background-size:cover;background-position:top center;background-repeat:no-repeat;opacity:0}
+body.in #bgfx{opacity:var(--bgop)}
+.serif{font-family:Georgia,"Times New Roman",serif}
+img{display:block;max-width:100%}
+
+/* Portada */
+#cover{max-width:520px;margin:0 auto;padding:0 0 28px}
+#cover img{width:100%;height:auto}
+.start{display:block;margin:18px 20px 0;padding:16px;border:0;border-radius:12px;background:var(--head);color:#fff;font:700 17px Mulish,system-ui,sans-serif;text-align:center;width:calc(100% - 40px)}
+:root[data-theme="dark"] .start{color:#10201A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .start{color:#10201A}}
+.hint{margin:12px 24px 0;text-align:center;color:var(--mute);font-size:14px}
+
+/* App */
+#app{display:none;max-width:640px;margin:0 auto}
+body.in #cover{display:none} body.in #app{display:block}
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--barbg);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:4px;padding:6px 8px}
+.bar button{font:600 15px Mulish,system-ui,sans-serif;border:0;background:transparent;color:var(--mute);padding:10px 12px;border-radius:10px;min-height:44px}
+.bar .tab{flex:1;text-align:center}
+.bar .tab[aria-selected="true"]{color:#fff}
+.bar .tab[data-d="viernes"][aria-selected="true"]{background:var(--c-vie)}
+.bar .tab[data-d="sabado"][aria-selected="true"]{background:var(--c-sab)}
+.bar .tab[data-d="domingo"][aria-selected="true"]{background:var(--c-dom)}
+.bar .tab[data-d="domingo"][aria-selected="true"],.bar .tab[data-d="sabado"][aria-selected="true"],.bar .tab[data-d="viernes"][aria-selected="true"]{color:#fff}
+:root[data-theme="dark"] .bar .tab[aria-selected="true"]{color:#10201A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .bar .tab[aria-selected="true"]{color:#10201A}}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--head);outline-offset:2px}
+
+.day{display:none;padding-bottom:40px}
+.day.on{display:block}
+.hero{width:100%;height:auto;-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
+.dayhead{padding:0 18px 4px;margin-top:-8px}
+.dayhead h1{margin:0;font:700 30px/1.1 Mulish,system-ui,sans-serif;letter-spacing:.04em;color:var(--acc)}
+.dayhead p{margin:6px 0 0;font-size:19px;line-height:1.35}
+.dayhead small{display:block;color:var(--mute);font-size:14px;margin-top:2px}
+.sess{margin:26px 18px 10px;font:700 18px Mulish,system-ui,sans-serif;color:var(--acc);border-bottom:2px solid var(--acc);padding-bottom:4px}
+
+.row{display:flex;gap:12px;padding:8px 18px;color:var(--mute);font-size:15px}
+.row b{font-weight:600;min-width:46px;color:var(--mute)}
+.card{margin:10px 12px;padding:14px;background:var(--card);border:1px solid var(--line);border-radius:12px}
+.card .tm{font-weight:700;color:var(--acc);font-size:14px}
+.lbl{font-weight:700;font-size:12.5px;color:var(--acc);letter-spacing:.03em}
+.ttl{font-size:18px;font-weight:700;line-height:1.3;margin:2px 0}
+.sub{font-style:italic;margin:0}
+.ref{font-size:14px;color:var(--mute);margin:2px 0 0}
+.grp{margin:14px 18px 0}
+.grp .tm{font-weight:700;color:var(--acc);font-size:14px}
+.sp{width:100%;margin-top:12px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--ctl);color:var(--ink);font:16px Mulish,system-ui,sans-serif}
+.pg{margin-top:12px}
+.pgh{display:flex;justify-content:space-between;align-items:center;color:var(--mute);font-size:13px;font-weight:600}
+.pgh button{border:0;background:transparent;color:var(--mute);font:600 13px Mulish,system-ui,sans-serif;padding:8px;min-height:40px}
+textarea.nt{display:block;width:100%;min-height:calc(2.2rem * 7);resize:none;overflow:hidden;border:0;border-radius:6px;padding:0 4px;color:var(--ink);font:17px/2.2rem Mulish,system-ui,sans-serif;background-color:var(--ctl);
+  background-image:repeating-linear-gradient(transparent 0,transparent calc(2.2rem - 1px),var(--line) calc(2.2rem - 1px),var(--line) 2.2rem);background-attachment:local}
+.add{margin-top:10px;width:100%;padding:12px;border:1.5px dashed var(--acc);border-radius:10px;background:transparent;color:var(--acc);font:700 15px Mulish,system-ui,sans-serif;min-height:46px}
+.tools{margin:28px 18px 0;display:flex;gap:10px;flex-wrap:wrap}
+.tools button{flex:1;min-width:140px;padding:12px;border:1px solid var(--line);border-radius:10px;background:var(--card);color:var(--ink);font:600 15px Mulish,system-ui,sans-serif;min-height:46px}
+.src{margin:18px 18px 0;color:var(--mute);font-size:12.5px}
+#toast{position:fixed;left:50%;bottom:calc(env(safe-area-inset-bottom,0px) + 18px);transform:translateX(-50%);background:var(--head);color:#fff;padding:10px 16px;border-radius:20px;font-size:14px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:40}
+:root[data-theme="dark"] #toast{color:#10201A}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) #toast{color:#10201A}}
+#toast.on{opacity:1}
+@media (prefers-reduced-motion:reduce){#toast{transition:none}}
+</style>
+</head>
+<body>
+<div id="bgfx" aria-hidden="true"></div>
+<section id="cover" aria-label="Portada">
+  <img src="img/portada.jpg" alt="Felices para siempre. Asamblea del 2026 de los testigos de Jehová. Programa">
+  <button class="start" id="go">Abrir mi anotador</button>
+  <p class="hint">Tus notas se guardan solas en este dispositivo.</p>
+</section>
+
+<main id="app">
+  <nav class="bar" role="tablist" aria-label="Días">
+    <button id="home" aria-label="Volver a la portada">⌂</button>
+    <button class="tab" role="tab" data-d="viernes">Viernes</button>
+    <button class="tab" role="tab" data-d="sabado">Sábado</button>
+    <button class="tab" role="tab" data-d="domingo">Domingo</button>
+  </nav>
+  <div id="days"></div>
+  <div class="tools">
+    <button id="copy">Copiar todas mis notas</button>
+  </div>
+  <p class="src">Anotador personal basado en el programa oficial de la asamblea (CO-pgm26-S). Las imágenes pertenecen al programa original.</p>
+</main>
+<div id="toast" role="status"></div>
+
+<script>
+const IMG={viernes:"img/dia-viernes.jpg",sabado:"img/dia-sabado.jpg",domingo:"img/dia-domingo.jpg"};
+const BG={viernes:"img/fondo-viernes.jpg",sabado:"img/fondo-sabado.jpg",domingo:"img/fondo-domingo.jpg"};
+const S=(t)=>({k:'s',t});
+const N=(t,label,title,sub,ref)=>({k:'n',t,label,title,sub,ref});
+const G=(t,label,title,kids)=>({k:'g',t,label,title,kids});
+const K=(title,ref)=>({title,ref});
+const DAYS=[
+{id:'viernes',name:'VIERNES',acc:'var(--c-vie)',quote:'“Felices los que reconocen sus necesidades espirituales”',ref:'Mateo 5:3',
+ sess:[
+ {n:'MAÑANA',items:[
+  S(['9:20','Video musical']),S(['9:30','Canción 160 y oración']),
+  N('9:40','DISCURSO DEL PRESIDENTE DE LA ASAMBLEA:','¿Es realista la idea de ser felices para siempre?',null,'(Salmo 16:11; 100:2)'),
+  N('10:10','PRODUCCIÓN AUDIOVISUAL:','Las buenas noticias según Jesús: Episodio 4','“Para eso he venido”','(Mateo 4:23-25; 8:1-4, 14-17; 9:1-17; 12:1-21; Marcos 1:21-3:19; Lucas 4:31-44; 5:12-6:16; Juan 5:1-47)'),
+  S(['11:05','Canción 17 y anuncios']),
+  G('11:15','SERIE DE DISCURSOS:','¡Las profecías sobre el Mesías se cumplieron!',[K('“Él mismo tomó nuestras enfermedades”','(Mateo 8:16, 17; Salmo 32:1, 2; Isaías 53:4, 5)'),K('“No discutirá”','(Mateo 12:15-21; Isaías 42:1-4)'),K('“Nunca les hablaba sin utilizar alguna comparación”','(Mateo 13:34, 35; Salmo 78:2)')]),
+  S(['12:10','Canción 14 e intermedio'])]},
+ {n:'TARDE',items:[
+  S(['1:35','Video musical']),S(['1:45','Canción 23']),
+  N('1:50',null,'¿Qué enseñó Jesús sobre el sábado?',null,'(Mateo 12:1-14; Juan 5:1-17)'),
+  G('2:10','SERIE DE DISCURSOS:','Imitemos a los que sirvieron a Jesús',[K('Los apóstoles','(Lucas 6:13, 15, 16)'),K('Muchas mujeres','(Mateo 27:55; Marcos 15:40; Lucas 8:1-3)')]),
+  S(['2:50','Canción 76 y anuncios']),
+  N('3:00',null,'“Felices los que lavan sus túnicas largas”',null,'(Apocalipsis 7:9, 10, 13-15; 22:14; Juan 5:24-29)'),
+  S(['3:30','Canción 155 y oración de conclusión'])]}]},
+{id:'sabado',name:'SÁBADO',acc:'var(--c-sab)',quote:'“Hay más felicidad en dar que en recibir”',ref:'Hechos 20:35',
+ sess:[
+ {n:'MAÑANA',items:[
+  S(['9:20','Video musical']),S(['9:30','Canción 111 y oración']),
+  N('9:40',null,'“Él tomó la palabra y se puso a enseñarles”',null,'(Mateo 5:1, 2)'),
+  N('9:50','PRODUCCIÓN AUDIOVISUAL:','Las buenas noticias según Jesús: Episodio 5','Impactados con su manera de enseñar','(Mateo 5:3-7:29; Lucas 6:17-49)'),
+  S(['10:25','Canción 89 y anuncios']),
+  N('10:35',null,'Cuatro enemigos de la felicidad',null,'(Lucas 6:24-26)'),
+  N('10:50',null,'¿Puede ver el principio detrás de la ley?',null,'(Mateo 5:17-48)'),
+  G('11:15','SERIE DE DISCURSOS:','Lecciones sobre la tierra en la que vivió Jesús',[K('La sal y la luz','(Mateo 5:13-16)'),K('Las plantas y los animales','(Génesis 1:28, 29; Mateo 6:19, 26, 28; 7:6, 10, 15, 16)')]),
+  N('11:40','DISCURSO DE BAUTISMO:','“Tu Padre, que mira en secreto, te lo pagará”',null,'(Mateo 6:6)'),
+  S(['12:10','Canción 51 e intermedio'])]},
+ {n:'TARDE',items:[
+  S(['1:35','Video musical']),S(['1:45','Canción 125']),
+  G('1:50','SERIE DE DISCURSOS:','Felices...',[K('... los que reconocen sus necesidades espirituales','(Mateo 5:3)'),K('... los que se lamentan','(Mateo 5:4)'),K('... los que son apacibles','(Mateo 5:5)'),K('... los que tienen hambre y sed de justicia','(Mateo 5:6)'),K('... los que son misericordiosos','(Mateo 5:7)'),K('... los que tienen un corazón puro','(Mateo 5:8)'),K('... los que fomentan la paz','(Mateo 5:9)'),K('... los que han sido perseguidos por causa de la justicia','(Mateo 5:10)'),K('... ustedes cuando la gente los insulte','(Mateo 5:11, 12)')]),
+  S(['3:20','Canción 81 y anuncios']),
+  N('3:30',null,'¿Por qué se angustian?',null,'(Mateo 6:19-33)'),
+  N('3:55',null,'“Entren por la puerta angosta”',null,'(Mateo 7:1-5, 12-14, 16-18, 24-27)'),
+  S(['4:30','Canción 21 y oración de conclusión'])]}]},
+{id:'domingo',name:'DOMINGO',acc:'var(--c-dom)',quote:'“Felices los ojos de ustedes, que ven, y sus oídos, que oyen”',ref:'Mateo 13:16',
+ sess:[
+ {n:'MAÑANA',items:[
+  S(['9:20','Video musical']),S(['9:30','Canción 68 y oración']),
+  G('9:40','SERIE DE DISCURSOS:','Lecciones de las comparaciones de Jesús',[K('Los cuatro tipos de terreno','(Mateo 13:18-23)'),K('El trigo y la mala hierba','(Mateo 13:24-30)'),K('El grano de mostaza','(Mateo 13:31, 32)'),K('La levadura','(Mateo 13:33)'),K('La red de pesca','(Mateo 13:47-50)')]),
+  S(['11:00','Canción 64 y anuncios']),
+  N('11:10','DISCURSO PÚBLICO:','¿Ha encontrado el tesoro?',null,'(Mateo 13:44-46)'),
+  N('11:40',null,'Resumen de La Atalaya',null,null),
+  S(['12:10','Canción 140 e intermedio'])]},
+ {n:'TARDE',items:[
+  S(['1:35','Video musical']),S(['1:45','Canción 108']),
+  N('1:50','PRODUCCIÓN AUDIOVISUAL:','Las buenas noticias según Jesús: Episodio 6','“¿Eres tú el que tiene que venir?”','(Mateo 8:5-13; 11:2-30; 12:22-13:53; Marcos 3:19-4:34; Lucas 7:1-8:21)'),
+  S(['2:35','Canción 120 y anuncios']),
+  N('2:45',null,'¿Qué hemos aprendido?',null,null),
+  N('2:55',null,'“Felices los ojos de ustedes, que ven”',null,'(Mateo 7:1-5; 13:16, 17; Lucas 6:46-49; 10:21; Juan 17:6; Santiago 1:22-25)'),
+  S(['3:45','Canción 163 y oración de conclusión'])]}]}
+];
+
+let ST={};try{ST=JSON.parse(localStorage.getItem('anotador26')||'{}')}catch(e){}
+let tm;function save(){clearTimeout(tm);tm=setTimeout(()=>{try{localStorage.setItem('anotador26',JSON.stringify(ST))}catch(e){}},300)}
+const rec=id=>ST[id]||(ST[id]={sp:'',pg:['']});
+const el=(t,c,x)=>{const e=document.createElement(t);if(c)e.className=c;if(x!=null)e.textContent=x;return e};
+function grow(t){t.style.height='auto';t.style.height=Math.max(t.scrollHeight,t.offsetHeight>0?0:0)+'px'}
+
+function pageBox(id,i,box,addBtn){
+  const r=rec(id),w=el('div','pg');
+  const h=el('div','pgh');h.appendChild(el('span',null,'Página '+(i+1)));
+  if(i>0){const x=el('button',null,'Quitar página');x.onclick=()=>{if(r.pg[i]&&!confirm('Esta página tiene notas. ¿Quitarla?'))return;r.pg.splice(i,1);save();render(id,box,addBtn)};h.appendChild(x)}
+  const t=el('textarea','nt');t.value=r.pg[i]||'';t.setAttribute('aria-label','Notas, página '+(i+1));t.spellcheck=true;
+  t.oninput=()=>{r.pg[i]=t.value;save();grow(t)};
+  w.append(h,t);return w}
+function render(id,box,addBtn){
+  box.textContent='';const r=rec(id);
+  r.pg.forEach((_,i)=>box.appendChild(pageBox(id,i,box,addBtn)));
+  box.querySelectorAll('textarea').forEach(grow)}
+function notes(id){
+  const f=el('div'),r=rec(id);
+  const sp=el('input','sp');sp.type='text';sp.placeholder='Orador';sp.value=r.sp||'';sp.setAttribute('aria-label','Nombre del orador');
+  sp.oninput=()=>{r.sp=sp.value;save()};
+  const box=el('div');const add=el('button','add','+ Agregar página');
+  add.onclick=()=>{r.pg.push('');save();render(id,box,add);const a=box.querySelectorAll('textarea');a[a.length-1].focus()};
+  f.append(sp,box,add);render(id,box,add);return f}
+
+function build(){
+  const host=document.getElementById('days');
+  DAYS.forEach(d=>{
+    const s=el('section','day');s.id='d-'+d.id;s.style.setProperty('--acc',d.acc);
+    const im=el('img','hero');im.src=IMG[d.id];im.alt='Ilustración del programa del '+d.name.toLowerCase();s.appendChild(im);
+    const hd=el('div','dayhead');hd.append(el('h1',null,d.name));
+    const q=el('p','serif',d.quote);hd.append(q,el('small',null,d.ref));s.appendChild(hd);
+    d.sess.forEach((se,si)=>{
+      s.appendChild(el('div','sess',se.n));
+      se.items.forEach((it,ii)=>{
+        const id=d.id+'-'+si+'-'+ii;
+        if(it.k==='s'){const r=el('div','row');r.append(el('b',null,it.t[0]),el('span',null,it.t[1]));s.appendChild(r);return}
+        const c=el('div','card');c.appendChild(el('div','tm',it.t));
+        if(it.label)c.appendChild(el('div','lbl',it.label));
+        c.appendChild(el('div','ttl',it.title));
+        if(it.k==='n'){
+          if(it.sub)c.appendChild(el('p','sub',it.sub));
+          if(it.ref)c.appendChild(el('p','ref',it.ref));
+          c.appendChild(notes(id));
+        }else{
+          it.kids.forEach((k,ki)=>{
+            const kc=el('div');kc.style.cssText='margin-top:16px;padding-top:12px;border-top:1px solid var(--line)';
+            kc.appendChild(el('div','ttl',k.title));if(k.ref)kc.appendChild(el('p','ref',k.ref));
+            kc.appendChild(notes(id+'-'+ki));c.appendChild(kc)});
+        }
+        s.appendChild(c)});
+    });
+    host.appendChild(s)});
+}
+function show(d){
+  document.body.classList.add('in');document.getElementById('bgfx').style.backgroundImage='url('+BG[d]+')';
+  document.querySelectorAll('.day').forEach(x=>x.classList.toggle('on',x.id==='d-'+d));
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x.dataset.d===d));
+  document.querySelectorAll('textarea.nt').forEach(grow);window.scrollTo(0,0)}
+function route(){const h=location.hash.slice(1);if(['viernes','sabado','domingo'].includes(h))show(h);else{document.body.classList.remove('in')}}
+build();
+document.getElementById('go').onclick=()=>{location.hash='viernes'};
+document.getElementById('home').onclick=()=>{history.replaceState(null,'',location.pathname+location.search);document.body.classList.remove('in');window.scrollTo(0,0)};
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{location.hash=b.dataset.d});
+window.addEventListener('hashchange',route);route();
+
+function toast(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2200)}
+document.getElementById('copy').onclick=async()=>{
+  let out='ASAMBLEA 2026 · FELICES PARA SIEMPRE\n';
+  const add=(id,title,ref)=>{const r=ST[id];if(!r)return;const body=(r.pg||[]).filter(Boolean).join('\n\n');if(!body&&!r.sp)return;out+='\n'+title+(ref?' '+ref:'')+'\n'+(r.sp?'Orador: '+r.sp+'\n':'')+body+'\n'};
+  DAYS.forEach(d=>{out+='\n=== '+d.name+' ===\n';d.sess.forEach((se,si)=>se.items.forEach((it,ii)=>{const id=d.id+'-'+si+'-'+ii;
+    if(it.k==='n')add(id,it.title,it.ref);else if(it.k==='g')it.kids.forEach((k,ki)=>add(id+'-'+ki,it.title+' – '+k.title,k.ref))}))});
+  try{await navigator.clipboard.writeText(out);toast('Notas copiadas')}catch(e){
+    const t=document.createElement('textarea');t.value=out;document.body.appendChild(t);t.select();
+    try{document.execCommand('copy');toast('Notas copiadas')}catch(_){toast('No se pudo copiar')}t.remove()}
+};
+if('serviceWorker' in navigator&&location.protocol.startsWith('http')){window.addEventListener('load',()=>{navigator.serviceWorker.register('sw.js').catch(()=>{})})}
+</script>
+</body>
+</html>
